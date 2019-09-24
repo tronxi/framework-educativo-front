@@ -52,6 +52,14 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -63,6 +71,9 @@
           "configurations": {
             "production": {
               "browserTarget": "framework-educativo-front:build:production"
+            },
+            "dev": {
+              "browserTarget": "framework-educativo-front:build:dev"
             }
           }
         },
