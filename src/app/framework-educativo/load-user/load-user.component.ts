@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {LoadUserService} from '../services/load-user.service';
 
 @Component({
   selector: 'app-load-user',
@@ -8,10 +9,16 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class LoadUserComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private loadUserService: LoadUserService) { }
   public loadUserForm: FormGroup;
   private alert: boolean;
-  csvContent: string;
+  private file: File;
+  private text: string;
+  private data: {
+    matricula: string,
+    nombre: string
+  };
   ngOnInit() {
     this.buildForm();
   }
@@ -24,29 +31,53 @@ export class LoadUserComponent implements OnInit {
     });
   }
 
+  fileChanged(e) {
+    this.file = e.target.files[0];
+  }
+
+  upload() {
+    const fileReader = new FileReader();
+    fileReader.readAsText(this.file);
+    fileReader.onload = (e) => {
+      this.text = fileReader.result.toString();
+      console.log(this.csvJSON(this.text));
+      this.loadUser(this.csvJSON(this.text));
+    };
+  }
+
+  loadUser(data) {
+    this.loadUserService.loadData(data).subscribe(response => {
+      console.log(response);
+    },
+    error => {
+      console.log(error);
+    });
+  }
+
+  csvJSON(csv) {
+    const lines = csv.split('\n');
+
+    const result = [];
+    const headers = lines[0].split(',');
+
+    for (let i = 1; i < lines.length; i++) {
+      const obj = {};
+      const currentline = lines[i].split(',');
+
+      for (let j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+      result.push(obj);
+    }
+    return result;
+  }
+
   onSubmit() {
     if (this.loadUserForm.invalid) {
       this.alert = true;
       return;
     }
-    console.log(this.loadUserForm.get('file'));
+    this.upload();
   }
 
-  onFileChange(event) {
-    const reader = new FileReader();
-
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        this.loadUserForm.patchValue({
-          file: reader.result
-        });
-
-        // need to run CD since file load runs outside of zone
-        //this.cd.markForCheck();
-      };
-    }
-  }
 }

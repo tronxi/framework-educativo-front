@@ -5,7 +5,7 @@ import {HomepageComponent} from '../framework-educativo/homepage/homepage.compon
 import {AuthGuard} from '../guards/auth.guard';
 import {LoadUserComponent} from '../framework-educativo/load-user/load-user.component';
 import {AdminGuard} from '../guards/admin.guard';
-import {HomepageContentComponent} from '../framework-educativo/homepage/homepage-content/homepage-content.component';
+import {HomepageContentComponent} from '../framework-educativo/homepage-content/homepage-content.component';
 
 const routes: Routes = [
   {
