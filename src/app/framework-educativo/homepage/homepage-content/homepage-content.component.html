@@ -1,0 +1,3 @@
+<app-homepage-student *ngIf="jwt.getStudentRole()"></app-homepage-student>
+<app-homepage-teacher *ngIf="jwt.getTeacherRole()"></app-homepage-teacher>
+<app-homepage-admin *ngIf="jwt.getAdminRole()"></app-homepage-admin>

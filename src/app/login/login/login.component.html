@@ -1,0 +1,13 @@
+<div class="card container margin">
+  <div class="card-body">
+    <h5 class="card-title text-center">Framework Educativo</h5>
+    <form class="container card-text" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input type="text" formControlName="user" class="form-control item" placeholder="usuario" />
+      <input type="password" formControlName="password" class="form-control item" placeholder="password" />
+      <div *ngIf="alert" class="alert alert-danger" role="alert">
+        Introduce datos correctos
+      </div>
+      <button class="btn btn-primary mr-1 item" [disabled]="loginForm.invalid">Login</button>
+    </form>
+  </div>
+</div>

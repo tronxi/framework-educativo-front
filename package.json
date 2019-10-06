@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "local": "ng serve",
     "dev": "ng serve --configuration=dev",
+    "pro": "ng serve --configuration=production",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -20,8 +21,10 @@
     "@angular/platform-browser": "~8.1.0",
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
+    "bootstrap": "^4.3.1",
+    "jwt-decode": "^2.2.0",
     "rxjs": "~6.4.0",
-    "tslib": "^1.9.0",
+    "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

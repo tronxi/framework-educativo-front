@@ -1,0 +1,13 @@
+<div class="card container margin">
+  <div class="card-body">
+    <h5 class="card-title text-center">Framework Educativo</h5>
+    <form class="container card-text" [formGroup]="loadUserForm" (ngSubmit)="onSubmit()">
+      <input type="file" formControlName="file"  (change)="onFileChange($event)" class="form-control item" placeholder=".csv" accept=".csv"/>
+      <div *ngIf="alert" class="alert alert-danger" role="alert">
+        Introduce datos correctos
+      </div>
+      <button class="btn btn-primary mr-1 item" [disabled]="loadUserForm.invalid">Load</button>
+    </form>
+  </div>
+</div>
+
