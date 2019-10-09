@@ -8,6 +8,7 @@ import { LoadUserComponent } from './load-user/load-user.component';
 import { HomepageStudentComponent } from './homepage-content/homepage-student/homepage-student.component';
 import { HomepageContentComponent } from './homepage-content/homepage-content.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { LoadTeacherComponent } from './load-teacher/load-teacher.component';
 
 
 
@@ -18,7 +19,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     HomepageTeacherComponent,
     LoadUserComponent,
     HomepageStudentComponent,
-    HomepageComponent
+    HomepageComponent,
+    LoadTeacherComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     HomepageAdminComponent,
     HomepageTeacherComponent,
     LoadUserComponent,
+    LoadTeacherComponent,
     HomepageStudentComponent,
     HomepageComponent
   ]

@@ -17,4 +17,8 @@ export class HomepageAdminComponent implements OnInit {
     this.router.navigateByUrl('/homepage/load-user');
   }
 
+  loadTeacher() {
+    this.router.navigateByUrl('/homepage/load-teacher');
+  }
+
 }

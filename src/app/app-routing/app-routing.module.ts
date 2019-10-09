@@ -6,6 +6,7 @@ import {AuthGuard} from '../guards/auth.guard';
 import {LoadUserComponent} from '../framework-educativo/load-user/load-user.component';
 import {AdminGuard} from '../guards/admin.guard';
 import {HomepageContentComponent} from '../framework-educativo/homepage-content/homepage-content.component';
+import {LoadTeacherComponent} from '../framework-educativo/load-teacher/load-teacher.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
       {
         path: 'load-user',
         component: LoadUserComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'load-teacher',
+        component: LoadTeacherComponent,
         canActivate: [AdminGuard]
       }
     ]

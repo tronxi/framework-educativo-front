@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {JwtService} from '../../services/jwt.service';
 import {Router} from '@angular/router';
-import {LocalstorageService} from '../../services/localstorage.service';
+import {SessionstorageService} from '../../services/sessionstorage.service';
 
 @Component({
   selector: 'app-homepage',
@@ -12,7 +12,7 @@ export class HomepageComponent implements OnInit {
 
   constructor(private jwt: JwtService,
               private router: Router,
-              private localStorage: LocalstorageService) { }
+              private localStorage: SessionstorageService) { }
 
   ngOnInit() {
     console.log(this.jwt.getRoles());

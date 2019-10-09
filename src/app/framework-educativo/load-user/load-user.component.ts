@@ -15,10 +15,7 @@ export class LoadUserComponent implements OnInit {
   private alert: boolean;
   private file: File;
   private text: string;
-  private data: {
-    matricula: string,
-    nombre: string
-  };
+
   ngOnInit() {
     this.buildForm();
   }

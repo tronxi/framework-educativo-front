@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../services/login.service';
-import {LocalstorageService} from '../../services/localstorage.service';
+import {SessionstorageService} from '../../services/sessionstorage.service';
 import {Router} from '@angular/router';
 import {JwtService} from '../../services/jwt.service';
 
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
               private loginService: LoginService,
               private jwt: JwtService,
               private router: Router,
-              private localStorage: LocalstorageService) { }
+              private localStorage: SessionstorageService) { }
 
   ngOnInit() {
     this.buildForm();

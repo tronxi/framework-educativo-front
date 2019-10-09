@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {LocalstorageService} from '../services/localstorage.service';
+import {SessionstorageService} from '../services/sessionstorage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor(private localStorageService: LocalstorageService) { }
+  constructor(private localStorageService: SessionstorageService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = this.localStorageService.get('token');

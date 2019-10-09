@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as jwt_decode from 'jwt-decode';
-import {LocalstorageService} from './localstorage.service';
+import {SessionstorageService} from './sessionstorage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JwtService {
 
-  constructor(private localStorage: LocalstorageService) { }
+  constructor(private localStorage: SessionstorageService) { }
 
 
   getDecodedAccessToken() {
