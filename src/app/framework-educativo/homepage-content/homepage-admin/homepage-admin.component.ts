@@ -13,12 +13,12 @@ export class HomepageAdminComponent implements OnInit {
   ngOnInit() {
   }
 
-  loadUser() {
-    this.router.navigateByUrl('/homepage/load-user');
+  loadStudentGroup() {
+    this.router.navigateByUrl('/homepage/load-student-group');
   }
 
-  loadTeacher() {
-    this.router.navigateByUrl('/homepage/load-teacher');
+  loadUser() {
+    this.router.navigateByUrl('/homepage/load-user');
   }
 
 }

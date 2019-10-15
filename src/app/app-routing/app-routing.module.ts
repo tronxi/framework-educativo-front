@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from '../login/login/login.component';
 import {HomepageComponent} from '../framework-educativo/homepage/homepage.component';
 import {AuthGuard} from '../guards/auth.guard';
-import {LoadUserComponent} from '../framework-educativo/load-user/load-user.component';
+import {LoadStudentGroupComponent} from '../framework-educativo/load-student-group/load-student-group.component';
 import {AdminGuard} from '../guards/admin.guard';
 import {HomepageContentComponent} from '../framework-educativo/homepage-content/homepage-content.component';
-import {LoadTeacherComponent} from '../framework-educativo/load-teacher/load-teacher.component';
+import {LoadUserComponent} from '../framework-educativo/load-user/load-user.component';
 
 const routes: Routes = [
   {
@@ -24,13 +24,13 @@ const routes: Routes = [
         component: HomepageContentComponent
       },
       {
-        path: 'load-user',
-        component: LoadUserComponent,
+        path: 'load-student-group',
+        component: LoadStudentGroupComponent,
         canActivate: [AdminGuard]
       },
       {
-        path: 'load-teacher',
-        component: LoadTeacherComponent,
+        path: 'load-user',
+        component: LoadUserComponent,
         canActivate: [AdminGuard]
       }
     ]

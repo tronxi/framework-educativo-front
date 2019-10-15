@@ -10,6 +10,6 @@ export class LoadUserService {
   constructor(private http: HttpClient) { }
 
   loadData(data) {
-    return this.http.post(environment.url + '/status/admin', data);
+    return this.http.post(environment.url + '/user', data);
   }
 }

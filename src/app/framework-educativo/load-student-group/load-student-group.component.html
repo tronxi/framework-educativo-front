@@ -1,7 +1,8 @@
 <div class="card container margin">
   <div class="card-body">
-    <h5 class="card-title text-center">Cargar Profesores</h5>
+    <h5 class="card-title text-center">Cargar Grupo Alumnos</h5>
     <form class="container card-text" [formGroup]="loadUserForm" (ngSubmit)="onSubmit()">
+      <input type="file" (change)="fileChanged($event)" formControlName="file" class="form-control-file item" placeholder=".txt" accept=".txt"/>
       <div *ngIf="alert" class="alert alert-danger" role="alert">
         Introduce datos correctos
       </div>

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoadUserService} from '../services/load-user.service';
 
 @Component({
-  selector: 'app-load-user',
+  selector: 'app-load-teacher',
   templateUrl: './load-user.component.html',
   styleUrls: ['./load-user.component.css']
 })
@@ -11,62 +11,54 @@ export class LoadUserComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private loadUserService: LoadUserService) { }
+  roles: any = [
+    {
+      name: 'Rol Estudiante',
+      value: 'STUDENT'
+    },
+    {
+      name: 'Rol Profesor',
+      value: 'TEACHER'
+    },
+    {
+      name: 'Rol Administrador',
+      value: 'ADMIN',
+    },
+  ];
   public loadUserForm: FormGroup;
   private alert: boolean;
-  private file: File;
-  private text: string;
-
+  private save = false;
+  private error = false;
   ngOnInit() {
     this.buildForm();
   }
 
   private buildForm() {
     this.loadUserForm = this.formBuilder.group({
-      file: new FormControl('', [
+      id_user: new FormControl('', [
         Validators.required,
       ]),
+      name: new FormControl('', [
+        Validators.required,
+      ]),
+      surnames: new FormControl('', [
+        Validators.required,
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+      ]),
+      email: new FormControl('', [
+        Validators.required, Validators.email
+      ]),
+      roles: this.createRoles(this.roles)
     });
   }
 
-  fileChanged(e) {
-    this.file = e.target.files[0];
-  }
-
-  upload() {
-    const fileReader = new FileReader();
-    fileReader.readAsText(this.file);
-    fileReader.onload = (e) => {
-      this.text = fileReader.result.toString();
-      console.log(this.csvJSON(this.text));
-      this.loadUser(this.csvJSON(this.text));
-    };
-  }
-
-  loadUser(data) {
-    this.loadUserService.loadData(data).subscribe(response => {
-      console.log(response);
-    },
-    error => {
-      console.log(error);
+  createRoles(roleInputs) {
+    const arr = roleInputs.map(role => {
+      return new FormControl(false);
     });
-  }
-
-  csvJSON(csv) {
-    const lines = csv.split('\n');
-
-    const result = [];
-    const headers = lines[0].split(',');
-
-    for (let i = 1; i < lines.length; i++) {
-      const obj = {};
-      const currentline = lines[i].split(',');
-
-      for (let j = 0; j < headers.length; j++) {
-        obj[headers[j]] = currentline[j];
-      }
-      result.push(obj);
-    }
-    return result;
+    return new FormArray(arr);
   }
 
   onSubmit() {
@@ -75,6 +67,40 @@ export class LoadUserComponent implements OnInit {
       return;
     }
     this.upload();
+  }
+
+
+  getUserData() {
+    this.loadUserForm.value.roles = this.loadUserForm.value.roles
+      .map((role, index) => {
+        if (role !== false) {
+          return this.roles[index].value;
+        }
+      })
+      .filter(
+        role => role !== undefined
+      );
+    return this.loadUserForm.value;
+  }
+
+  deleteAlerts() {
+    setTimeout(() => {
+      this.save = false;
+      this.error = false;
+    }, 2000);
+  }
+
+  upload() {
+    this.loadUserService.loadData(this.getUserData()).subscribe(response => {
+      this.save = true;
+      //this.loadUserForm.reset(this.loadUserForm.value);
+      this.deleteAlerts();
+      console.log(response);
+    }, error => {
+      this.error = true;
+      this.deleteAlerts();
+      console.log(error);
+    });
   }
 
 }
