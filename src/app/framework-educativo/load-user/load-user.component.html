@@ -1,7 +1,7 @@
 <div class="card container margin">
   <div class="card-body">
     <h5 class="card-title text-center">Cargar Usuario</h5>
-    <form class="container card-text" [formGroup]="loadUserForm" (ngSubmit)="onSubmit()">
+    <form class="container card-text" [formGroup]="loadUserForm" #form="ngForm" (ngSubmit)="onSubmit()">
       <input type="text"  formControlName="id_user" class="form-control item" placeholder="id"/>
       <input type="text"  formControlName="name" class="form-control item" placeholder="nombre"/>
       <input type="text"  formControlName="surnames" class="form-control item" placeholder="apellidos"/>

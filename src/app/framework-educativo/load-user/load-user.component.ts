@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {LoadUserService} from '../services/load-user.service';
 
 @Component({
@@ -29,6 +29,7 @@ export class LoadUserComponent implements OnInit {
   private alert: boolean;
   private save = false;
   private error = false;
+  private listUsers = [];
   ngOnInit() {
     this.buildForm();
   }
@@ -83,6 +84,12 @@ export class LoadUserComponent implements OnInit {
     return this.loadUserForm.value;
   }
 
+  getListUsers() {
+    this.listUsers.push(this.getUserData());
+    console.log(this.listUsers);
+    return this.listUsers;
+  }
+
   deleteAlerts() {
     setTimeout(() => {
       this.save = false;
@@ -91,13 +98,14 @@ export class LoadUserComponent implements OnInit {
   }
 
   upload() {
-    this.loadUserService.loadData(this.getUserData()).subscribe(response => {
+    this.loadUserService.loadData(this.getListUsers()).subscribe(response => {
       this.save = true;
-      //this.loadUserForm.reset(this.loadUserForm.value);
+      this.buildForm();
       this.deleteAlerts();
       console.log(response);
     }, error => {
       this.error = true;
+      this.buildForm();
       this.deleteAlerts();
       console.log(error);
     });
