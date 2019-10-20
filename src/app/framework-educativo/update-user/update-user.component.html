@@ -8,7 +8,7 @@
         usuario no encontrado
       </div>
     </form>
-    <form *ngIf="showLoadUserForm" class="container card-text" [formGroup]="loadUserForm" #form="ngForm" (ngSubmit)="onSubmitLoadUser()">
+    <form *ngIf="showLoadUserForm" class="container card-text" [formGroup]="loadUserForm" #form="ngForm" (ngSubmit)="onSubmitLoadUser(type)">
       <input type="text"  formControlName="ident" class="form-control item" placeholder="id"/>
       <input type="text"  formControlName="name" class="form-control item" placeholder="nombre"/>
       <input type="text"  formControlName="surnames" class="form-control item" placeholder="apellidos"/>
@@ -22,8 +22,8 @@
         Introduce datos correctos
       </div>
       <div class="container-row">
-        <button class="btn btn-primary mr-1 item" [disabled]="loadUserForm.invalid">Actualizar</button>
-        <button class="btn btn-danger mr-1 item" [disabled]="loadUserForm.invalid">Borrar</button>
+        <button class="btn btn-primary mr-1 item" [disabled]="loadUserForm.invalid" (click)="onSubmitLoadUser('update')">Actualizar</button>
+        <button class="btn btn-danger mr-1 item" [disabled]="loadUserForm.invalid" (click)="onSubmitLoadUser('delete')">Borrar</button>
       </div>
     </form>
     <div *ngIf="save" class="alert alert-success" role="dialog">
@@ -31,6 +31,12 @@
     </div>
     <div *ngIf="error" class="alert alert-danger" role="alert">
       Introduce datos correctos
+    </div>
+    <div *ngIf="showDelete" class="alert alert-success" role="dialog">
+      Usuario Borrado
+    </div>
+    <div *ngIf="errorDelete" class="alert alert-danger" role="alert">
+      Error al borrar usuario
     </div>
   </div>
 </div>

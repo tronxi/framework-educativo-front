@@ -32,7 +32,9 @@ export class UpdateUserComponent implements OnInit {
   private error = false;
   private showLoadUserForm = false;
   private showNotFound = false;
-  private listUsers = [];
+  private showDelete = false;
+  private errorDelete = false;
+  private user;
   ngOnInit() {
     this.buildLoadUserForm();
     this.buildFindUserForm();
@@ -74,12 +76,16 @@ export class UpdateUserComponent implements OnInit {
     return new FormArray(arr);
   }
 
-  onSubmitLoadUser() {
+  onSubmitLoadUser(type) {
     if (this.loadUserForm.invalid) {
       this.alert = true;
       return;
     }
-    this.upload();
+    if (type === 'update') {
+      this.update();
+    } else if (type === 'delete') {
+      this.delete();
+    }
   }
 
   onSubmitFindUser() {
@@ -87,6 +93,7 @@ export class UpdateUserComponent implements OnInit {
       this.showLoadUserForm = true;
       this.showNotFound = false;
       this.setData(response);
+      this.user = response;
       console.log(response);
     },
       error => {
@@ -120,31 +127,46 @@ export class UpdateUserComponent implements OnInit {
     return this.loadUserForm.value;
   }
 
-  getListUsers() {
+  getUserWithId() {
     const user = this.getUserData();
     user.isChanged = false;
+    user.id_user = this.user.id_user;
     console.log(user);
-    this.listUsers.push(this.getUserData());
-    console.log(this.listUsers);
-    return this.listUsers;
+    return user;
   }
 
   deleteAlerts() {
     setTimeout(() => {
       this.save = false;
       this.error = false;
+      this.showDelete = false;
+      this.errorDelete = false;
     }, 2000);
   }
 
-  upload() {
-    this.userService.loadData(this.getListUsers()).subscribe(response => {
+  update() {
+    this.userService.updateUser(this.getUserWithId()).subscribe(response => {
       this.save = true;
+      this.showLoadUserForm = false;
       this.buildLoadUserForm();
       this.deleteAlerts();
       console.log(response);
     }, error => {
       this.error = true;
+      this.deleteAlerts();
+      console.log(error);
+    });
+  }
+
+  delete() {
+    this.userService.deleteUser(this.getUserWithId().ident).subscribe(response => {
+      this.showDelete = true;
+      this.showLoadUserForm = false;
       this.buildLoadUserForm();
+      this.deleteAlerts();
+      console.log(response);
+    }, error => {
+      this.errorDelete = true;
       this.deleteAlerts();
       console.log(error);
     });
