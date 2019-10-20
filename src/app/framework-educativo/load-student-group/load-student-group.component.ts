@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {LoadUserService} from '../services/load-user.service';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-load-user',
@@ -10,7 +10,7 @@ import {LoadUserService} from '../services/load-user.service';
 export class LoadStudentGroupComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
-              private loadUserService: LoadUserService) { }
+              private loadUserService: UserService) { }
   public loadUserForm: FormGroup;
   private alert: boolean;
   private file: File;
@@ -47,7 +47,8 @@ export class LoadStudentGroupComponent implements OnInit {
   addRolesAndPassword(data) {
     data.forEach(user => {
       user.roles = ['STUDENT'];
-      user.password = user.id_user;
+      user.password = user.ident;
+      user.isChanged = false;
     });
     return data;
   }

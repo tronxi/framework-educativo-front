@@ -9,6 +9,7 @@ import { HomepageStudentComponent } from './homepage-content/homepage-student/ho
 import { HomepageContentComponent } from './homepage-content/homepage-content.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { LoadUserComponent } from './load-user/load-user.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 
 
@@ -21,6 +22,7 @@ import { LoadUserComponent } from './load-user/load-user.component';
     HomepageStudentComponent,
     HomepageComponent,
     LoadUserComponent,
+    UpdateUserComponent,
   ],
   imports: [
     CommonModule,

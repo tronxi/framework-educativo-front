@@ -1,8 +1,15 @@
 <div class="card container margin">
   <div class="card-body">
-    <h5 class="card-title text-center">Cargar Usuario</h5>
-    <form class="container card-text" [formGroup]="loadUserForm" #form="ngForm" (ngSubmit)="onSubmit()">
-      <input type="text"  formControlName="ident" class="form-control item" placeholder="ident"/>
+    <h5 class="card-title text-center">Actualizar Usuario</h5>
+    <form class="container" [formGroup]="findUserForm" (ngSubmit)="onSubmitFindUser()">
+      <input type="text" class="form-control item" formControlName="ident" placeholder="ident"/>
+      <button class="btn btn-primary mr-1 item"  [disabled]="findUserForm.invalid">Buscar</button>
+      <div *ngIf="showNotFound" class="alert alert-danger" role="alert">
+        usuario no encontrado
+      </div>
+    </form>
+    <form *ngIf="showLoadUserForm" class="container card-text" [formGroup]="loadUserForm" #form="ngForm" (ngSubmit)="onSubmitLoadUser()">
+      <input type="text"  formControlName="ident" class="form-control item" placeholder="id"/>
       <input type="text"  formControlName="name" class="form-control item" placeholder="nombre"/>
       <input type="text"  formControlName="surnames" class="form-control item" placeholder="apellidos"/>
       <input type="password" formControlName="password" class="form-control item" placeholder="password"/>
@@ -14,7 +21,10 @@
       <div *ngIf="alert" class="alert alert-danger" role="alert">
         Introduce datos correctos
       </div>
-      <button class="btn btn-primary mr-1 item" [disabled]="loadUserForm.invalid">Load</button>
+      <div class="container-row">
+        <button class="btn btn-primary mr-1 item" [disabled]="loadUserForm.invalid">Actualizar</button>
+        <button class="btn btn-danger mr-1 item" [disabled]="loadUserForm.invalid">Borrar</button>
+      </div>
     </form>
     <div *ngIf="save" class="alert alert-success" role="dialog">
       Usuario Guardado

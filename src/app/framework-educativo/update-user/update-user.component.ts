@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../services/user.service';
 
 @Component({
-  selector: 'app-load-teacher',
-  templateUrl: './load-user.component.html',
-  styleUrls: ['./load-user.component.css']
+  selector: 'app-update-user',
+  templateUrl: './update-user.component.html',
+  styleUrls: ['./update-user.component.css']
 })
-export class LoadUserComponent implements OnInit {
+export class UpdateUserComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService) { }
@@ -26,15 +26,27 @@ export class LoadUserComponent implements OnInit {
     },
   ];
   public loadUserForm: FormGroup;
+  public findUserForm: FormGroup;
   private alert: boolean;
   private save = false;
   private error = false;
+  private showLoadUserForm = false;
+  private showNotFound = false;
   private listUsers = [];
   ngOnInit() {
-    this.buildForm();
+    this.buildLoadUserForm();
+    this.buildFindUserForm();
   }
-
-  private buildForm() {
+  private buildFindUserForm() {
+    this.findUserForm = this.formBuilder.group(
+      {
+        ident: new FormControl('', [
+          Validators.required,
+        ]),
+      }
+    );
+  }
+  private buildLoadUserForm() {
     this.loadUserForm = this.formBuilder.group({
       ident: new FormControl('', [
         Validators.required,
@@ -62,7 +74,7 @@ export class LoadUserComponent implements OnInit {
     return new FormArray(arr);
   }
 
-  onSubmit() {
+  onSubmitLoadUser() {
     if (this.loadUserForm.invalid) {
       this.alert = true;
       return;
@@ -70,7 +82,31 @@ export class LoadUserComponent implements OnInit {
     this.upload();
   }
 
-
+  onSubmitFindUser() {
+    this.userService.getUsers(this.findUserForm.value.ident).subscribe(response => {
+      this.showLoadUserForm = true;
+      this.showNotFound = false;
+      this.setData(response);
+      console.log(response);
+    },
+      error => {
+      this.showNotFound = true;
+      this.showLoadUserForm = false;
+      console.log(error);
+      });
+  }
+  setData(data) {
+    this.loadUserForm.setValue({
+      ident: data.ident,
+      name: data.name,
+      surnames: data.surnames,
+      password: data.ident,
+      email: data.email,
+      roles: [data.roles.includes('STUDENT'),
+        data.roles.includes('TEACHER'),
+        data.roles.includes('ADMIN')]
+    });
+  }
   getUserData() {
     this.loadUserForm.value.roles = this.loadUserForm.value.roles
       .map((role, index) => {
@@ -87,7 +123,9 @@ export class LoadUserComponent implements OnInit {
   getListUsers() {
     const user = this.getUserData();
     user.isChanged = false;
-    this.listUsers.push(user);
+    console.log(user);
+    this.listUsers.push(this.getUserData());
+    console.log(this.listUsers);
     return this.listUsers;
   }
 
@@ -101,12 +139,12 @@ export class LoadUserComponent implements OnInit {
   upload() {
     this.userService.loadData(this.getListUsers()).subscribe(response => {
       this.save = true;
-      this.buildForm();
+      this.buildLoadUserForm();
       this.deleteAlerts();
       console.log(response);
     }, error => {
       this.error = true;
-      this.buildForm();
+      this.buildLoadUserForm();
       this.deleteAlerts();
       console.log(error);
     });
