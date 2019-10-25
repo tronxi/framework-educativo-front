@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   environment: 'default',
-  url: 'http://localhost:8080'
+  url: 'http://192.168.1.7:8079'
 };
