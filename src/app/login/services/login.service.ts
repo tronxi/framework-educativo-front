@@ -13,7 +13,7 @@ export class LoginService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', 'Basic ' + window.btoa(user + ':' + pass));
 
-    return this.http.post(environment.url + '/user/login', {}, {
+    return this.http.post(environment.url + '/login', {}, {
       headers,
       responseType: 'text'
     });
