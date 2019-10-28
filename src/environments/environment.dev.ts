@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   environment: 'dev',
-  url: 'http://localhost:8079'
+  url: 'http://raspberrytronxi2.ddns.net:8079'
 };

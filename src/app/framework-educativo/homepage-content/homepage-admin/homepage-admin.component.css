@@ -1,5 +1,11 @@
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.item {
+  padding: 5px;
+  width: 200px;
 }
