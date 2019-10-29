@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
               private localStorage: SessionstorageService) { }
 
   ngOnInit() {
+    this.localStorage.set('token', '');
     this.buildForm();
   }
 
