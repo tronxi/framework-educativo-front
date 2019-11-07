@@ -1,0 +1,19 @@
+<div class="card container margin">
+  <div class="card-body">
+    <h5 class="card-title text-center">Cargar Asignatura</h5>
+    <form class="container card-text" [formGroup]="loadSubjectForm" (ngSubmit)="onSubmit()">
+      <input type="text"  formControlName="name" class="form-control item" placeholder="nombre de la asignatura"/>
+      <input type="number" min="1970" max="2900" formControlName="year" class="form-control item" placeholder="año"/>
+      <div *ngIf="alert" class="alert alert-danger" role="alert">
+        Introduce datos correctos
+      </div>
+      <button class="btn btn-primary mr-1 item" [disabled]="loadSubjectForm.invalid">Load</button>
+    </form>
+    <div *ngIf="save" class="alert alert-success" role="dialog">
+      Asignatura Guardada
+    </div>
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      Introduce datos correctos
+    </div>
+  </div>
+</div>
