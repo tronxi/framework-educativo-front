@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { LoadUserComponent } from './load-user/load-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { LoadSubjectComponent } from './load-subject/load-subject.component';
+import { UpdateSubjectComponent } from './update-subject/update-subject.component';
 
 
 
@@ -25,6 +26,7 @@ import { LoadSubjectComponent } from './load-subject/load-subject.component';
     LoadUserComponent,
     UpdateUserComponent,
     LoadSubjectComponent,
+    UpdateSubjectComponent,
   ],
   imports: [
     CommonModule,

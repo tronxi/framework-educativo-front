@@ -9,6 +9,7 @@ import {HomepageContentComponent} from '../framework-educativo/homepage-content/
 import {LoadUserComponent} from '../framework-educativo/load-user/load-user.component';
 import {UpdateUserComponent} from '../framework-educativo/update-user/update-user.component';
 import {LoadSubjectComponent} from '../framework-educativo/load-subject/load-subject.component';
+import {UpdateSubjectComponent} from '../framework-educativo/update-subject/update-subject.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,11 @@ const routes: Routes = [
       {
         path: 'load-subject',
         component: LoadSubjectComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'update-subject',
+        component: UpdateSubjectComponent,
         canActivate: [AdminGuard]
       }
     ]

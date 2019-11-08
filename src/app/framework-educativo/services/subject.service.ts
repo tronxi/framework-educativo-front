@@ -12,4 +12,8 @@ export class SubjectService {
   loadSubject(subject) {
     return this.http.post(environment.url + '/subject', subject);
   }
+
+  getSubjectByNameYear(name, year) {
+    return this.http.get(environment.url + '/subject?name=' + name + '&year=' + year);
+  }
 }

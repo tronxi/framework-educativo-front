@@ -29,4 +29,8 @@ export class HomepageAdminComponent implements OnInit {
     this.router.navigateByUrl('/homepage/load-subject');
   }
 
+  updateSubject() {
+    this.router.navigateByUrl('/homepage/update-subject');
+  }
+
 }
