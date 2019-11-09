@@ -8,6 +8,12 @@ body {
   flex-direction: column;
   align-content: center;
 }
+
+.container-space {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .container-row {
   display: flex;
   flex-direction: row;

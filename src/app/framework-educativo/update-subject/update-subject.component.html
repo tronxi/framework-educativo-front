@@ -11,8 +11,23 @@
     </form>
     <form *ngIf="showLoadSubjectForm" class="container card-text" [formGroup]="loadSubjectForm" #form="ngForm" (ngSubmit)="onSubmitLoadSubject(type)">
       <input type="text"  formControlName="id" class="form-control item" placeholder="id" disabled/>
-      <input type="text"  formControlName="name" class="form-control item" placeholder="nombre"/>
-      <input type="text"  formControlName="year" class="form-control item" placeholder="apellidos"/>
+      <input type="text"  formControlName="name" class="form-control item" placeholder="nombre de la asignatura"/>
+      <input type="number" min="1970" max="2900" formControlName="year" class="form-control item" placeholder="año"/>
+      <div class="card container margin">
+        <div class="card-body">
+          <h5 class="card-title text-center">Grupos</h5>
+          <ul>
+            <li *ngFor="let group of subject.groups" class="container-space">
+              <span class="item">{{group.name}}</span>
+              <button class="btn btn-danger mr-1 item" (click)="deleteGroup(group.name)">Borrar</button>
+            </li>
+          </ul>
+          <form class="container card-text" [formGroup]="groupForm" (ngSubmit)="onSubmitGroupForm()">
+            <input type="text"  formControlName="group" class="form-control item" placeholder="grupo"/>
+            <button class="btn btn-primary mr-1 item"  [disabled]="groupForm.invalid">Añadir</button>
+          </form>
+        </div>
+      </div>
       <div *ngIf="alert" class="alert alert-danger" role="alert">
         Introduce datos correctos
       </div>

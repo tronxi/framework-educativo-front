@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../services/user.service';
-import {Subject} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {SubjectService} from '../services/subject.service';
 
 @Component({
@@ -13,6 +11,7 @@ export class UpdateSubjectComponent implements OnInit {
 
   public loadSubjectForm: FormGroup;
   public findSubjectForm: FormGroup;
+  public groupForm: FormGroup;
   private alert: boolean;
   private save = false;
   private error = false;
@@ -50,7 +49,15 @@ export class UpdateSubjectComponent implements OnInit {
         Validators.required,
       ]),
       year: new FormControl('', [
-        Validators.required,
+        Validators.required, Validators.min(1970), Validators.max(2900)
+      ]),
+    });
+  }
+
+  buildGroupForm() {
+    this.groupForm = this.formBuilder.group({
+      group: new FormControl('', [
+        Validators.required, Validators.maxLength(10), this.uniqueValueValidation(this.subject)
       ]),
     });
   }
@@ -63,7 +70,8 @@ export class UpdateSubjectComponent implements OnInit {
       this.showNotFound = false;
       this.subject = response;
       this.setData(response);
-    }, error => {
+      this.buildGroupForm();
+      }, error => {
       console.log(error);
       this.showNotFound = true;
       this.showLoadSubjectForm = false;
@@ -91,11 +99,42 @@ export class UpdateSubjectComponent implements OnInit {
   }
 
   update() {
-    console.log('update');
+    this.subject.name = this.loadSubjectForm.value.name;
+    this.subject.year = this.loadSubjectForm.value.year;
+    console.log(this.subject);
   }
 
   delete() {
     console.log('delete');
   }
 
+  deleteGroup(name) {
+    this.subject.groups = this.subject.groups.filter(group => group.name !== name);
+    console.log(this.subject.groups);
+  }
+
+  onSubmitGroupForm() {
+    this.subject.groups.push({
+      id_subject: this.subject.idSubject,
+      id_group: '',
+      name: this.groupForm.value.group
+    });
+    this.resetGroupForm();
+  }
+
+  resetGroupForm() {
+    this.groupForm.setValue({
+      group: ''
+    });
+  }
+
+  uniqueValueValidation(subject): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      const names = subject.groups.filter(group => group.name === control.value);
+      if (control.value !== undefined && names.length !== 0) {
+        return { uniqueValue: true };
+      }
+      return null;
+    };
+  }
 }
