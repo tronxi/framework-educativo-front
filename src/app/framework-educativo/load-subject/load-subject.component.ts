@@ -42,6 +42,8 @@ export class LoadSubjectComponent implements OnInit {
   }
 
   upload() {
+    this.loadSubjectForm.value.groups = [];
+    console.log(this.loadSubjectForm.value);
     this.subjectService.loadSubject(this.loadSubjectForm.value).subscribe(response => {
       this.save = true;
       this.buildForm();

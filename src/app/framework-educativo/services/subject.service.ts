@@ -18,7 +18,7 @@ export class SubjectService {
   }
 
   deleteSubjectById(id) {
-    return this.http.get(environment.url + '/subject?id=' + id);
+    return this.http.delete(environment.url + '/subject?id=' + id);
   }
 
   updateSubject(subject) {

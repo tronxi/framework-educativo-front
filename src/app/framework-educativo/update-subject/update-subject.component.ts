@@ -105,7 +105,17 @@ export class UpdateSubjectComponent implements OnInit {
   }
 
   delete() {
-    console.log('delete');
+    console.log(this.subject.idSubject);
+    this.subjectService.deleteSubjectById(this.subject.idSubject).subscribe(response => {
+      this.showDelete = true;
+      this.showLoadSubjectForm = false;
+      this.buildLoadSubjectForm();
+      this.deleteAlerts();
+    }, error => {
+      this.errorDelete = true;
+      this.deleteAlerts();
+      console.log(error);
+    });
   }
 
   deleteGroup(name) {
@@ -136,5 +146,14 @@ export class UpdateSubjectComponent implements OnInit {
       }
       return null;
     };
+  }
+
+  deleteAlerts() {
+    setTimeout(() => {
+      this.save = false;
+      this.error = false;
+      this.showDelete = false;
+      this.errorDelete = false;
+    }, 2000);
   }
 }
