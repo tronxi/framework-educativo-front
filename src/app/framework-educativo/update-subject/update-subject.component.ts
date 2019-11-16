@@ -102,6 +102,17 @@ export class UpdateSubjectComponent implements OnInit {
     this.subject.name = this.loadSubjectForm.value.name;
     this.subject.year = this.loadSubjectForm.value.year;
     console.log(this.subject);
+    this.subjectService.updateSubject(this.subject).subscribe(response => {
+      this.save = true;
+      this.showLoadSubjectForm = false;
+      this.buildLoadSubjectForm();
+      this.deleteAlerts();
+      console.log(response);
+    }, error => {
+      this.error = true;
+      this.deleteAlerts();
+      console.log(error);
+    });
   }
 
   delete() {

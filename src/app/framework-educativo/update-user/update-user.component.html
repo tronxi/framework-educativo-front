@@ -22,8 +22,8 @@
         Introduce datos correctos
       </div>
       <div class="container-row">
-        <button class="btn btn-danger mr-1 item" [disabled]="loadUserForm.invalid" (click)="onSubmitLoadUser('delete')">Borrar</button>
         <button class="btn btn-primary mr-1 item" [disabled]="loadUserForm.invalid" (click)="onSubmitLoadUser('update')">Actualizar</button>
+        <button class="btn btn-danger mr-1 item" [disabled]="loadUserForm.invalid" (click)="onSubmitLoadUser('delete')">Borrar</button>
       </div>
     </form>
     <div *ngIf="save" class="alert alert-success" role="dialog">
