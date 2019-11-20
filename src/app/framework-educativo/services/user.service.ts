@@ -10,18 +10,18 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   loadData(userList) {
-    return this.http.post(environment.url + '/user', userList);
+    return this.http.post(environment.url + '/user-service/user', userList);
   }
 
   getUsers(ident) {
-    return this.http.get(environment.url + '/user?ident=' + ident);
+    return this.http.get(environment.url + '/user-service/user?ident=' + ident);
   }
 
   updateUser(user) {
-    return this.http.put(environment.url + '/user', user);
+    return this.http.put(environment.url + '/user-service/user', user);
   }
 
   deleteUser(ident) {
-    return this.http.delete(environment.url + '/user?ident=' + ident);
+    return this.http.delete(environment.url + '/user-service/user?ident=' + ident);
   }
 }
