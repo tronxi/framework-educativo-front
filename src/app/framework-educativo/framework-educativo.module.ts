@@ -12,6 +12,7 @@ import { LoadUserComponent } from './load-user/load-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { LoadSubjectComponent } from './load-subject/load-subject.component';
 import { UpdateSubjectComponent } from './update-subject/update-subject.component';
+import { UpdateTeacherComponent } from './update-teacher/update-teacher.component';
 
 
 
@@ -27,6 +28,7 @@ import { UpdateSubjectComponent } from './update-subject/update-subject.componen
     UpdateUserComponent,
     LoadSubjectComponent,
     UpdateSubjectComponent,
+    UpdateTeacherComponent,
   ],
   imports: [
     CommonModule,

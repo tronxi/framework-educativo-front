@@ -87,6 +87,7 @@ export class LoadUserComponent implements OnInit {
   getListUsers() {
     const user = this.getUserData();
     user.isChanged = false;
+    this.listUsers = [];
     this.listUsers.push(user);
     return this.listUsers;
   }
