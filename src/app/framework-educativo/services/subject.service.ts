@@ -17,6 +17,10 @@ export class SubjectService {
     return this.http.get(environment.url + '/subject-service/subject?name=' + name + '&year=' + year);
   }
 
+  getSubjectTeachers(subject) {
+    return this.http.get(environment.url + '/subject-service/subject/' + subject + '/teacher');
+  }
+
   deleteSubjectById(id) {
     return this.http.delete(environment.url + '/subject-service/subject?id=' + id);
   }
