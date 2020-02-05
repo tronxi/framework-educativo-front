@@ -41,7 +41,7 @@ export class UpdateTeacherComponent implements OnInit {
 
   buildUpdateTeacherForm() {
     this.updateTeacherForm = this.formBuilder.group({
-      name: new FormControl('', [
+      ident: new FormControl('', [
         Validators.required,
       ])
     });
@@ -61,8 +61,6 @@ export class UpdateTeacherComponent implements OnInit {
           }, er => {
             console.log(er);
         });
-        //this.setData(response);
-        //this.buildGroupForm();
       }, error => {
         console.log(error);
         this.showNotFound = true;
@@ -70,14 +68,37 @@ export class UpdateTeacherComponent implements OnInit {
       });
   }
 
-  onSubmitUpdateTeacherForm() {
-    console.log('aa');
+  deleteTeacher(ident) {
+    console.log(ident);
   }
 
-  onSubmit(tipe) {
-    console.log('tipe');
+  onSubmitGroupForm() {
+    this.subjectService.setTeacher(this.subject.idSubject, this.updateTeacherForm.value.ident)
+      .subscribe( response => {
+        this.save = true;
+        this.deleteAlerts();
+        this.subjectService.getSubjectTeachers(this.subject.idSubject)
+          .subscribe(res => {
+            this.teachers = res;
+            this.buildUpdateTeacherForm();
+          }, er => {
+            console.log(er);
+          });
+      }, error => {
+        this.errorDelete = true;
+        console.log(error);
+        this.deleteAlerts();
+        this.buildUpdateTeacherForm();
+      });
   }
 
-
+  deleteAlerts() {
+    setTimeout(() => {
+      this.save = false;
+      this.error = false;
+      this.showDelete = false;
+      this.errorDelete = false;
+    }, 2000);
+  }
 
 }

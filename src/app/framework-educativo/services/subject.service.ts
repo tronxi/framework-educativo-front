@@ -28,4 +28,8 @@ export class SubjectService {
   updateSubject(subject) {
     return this.http.put(environment.url + '/subject-service/subject', subject);
   }
+
+  setTeacher(subject, teacher) {
+    return this.http.post(environment.url + '/subject-service/subject/' + subject + '/teacher/' + teacher, {});
+  }
 }

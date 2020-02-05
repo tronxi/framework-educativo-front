@@ -7,7 +7,7 @@ import {HomepageTeacherComponent} from './homepage-content/homepage-teacher/home
 import { LoadStudentGroupComponent } from './load-student-group/load-student-group.component';
 import { HomepageStudentComponent } from './homepage-content/homepage-student/homepage-student.component';
 import { HomepageContentComponent } from './homepage-content/homepage-content.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoadUserComponent } from './load-user/load-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { LoadSubjectComponent } from './load-subject/load-subject.component';
@@ -30,11 +30,12 @@ import { UpdateTeacherComponent } from './update-teacher/update-teacher.componen
     UpdateSubjectComponent,
     UpdateTeacherComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
   exports: [
     HomepageContentComponent,
     HomepageAdminComponent,

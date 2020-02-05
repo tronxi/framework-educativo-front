@@ -9,15 +9,20 @@
         Asignatura no encontrada
       </div>
     </form>
-    <form *ngIf="showUpdateTeacherForm" class="container card-text" [formGroup]="updateTeacherForm" #form="ngForm" (ngSubmit)="onSubmitLoadSubject(type)">
+    <form *ngIf="showUpdateTeacherForm" class="container card-text" [formGroup]="updateTeacherForm">
       <div class="card container margin">
         <div class="card-body">
           <h5 class="card-title text-center">Profesores</h5>
           <ul>
-            <li *ngFor="let teacher of teachers">
-              <p>{{teacher.name}}</p>
+            <li *ngFor="let teacher of teachers" class="container-space">
+              <span class="item">{{teacher.ident}}</span>
+              <button class="btn btn-danger mr-1 item" (click)="deleteTeacher(teacher.ident)">Borrar</button>
             </li>
           </ul>
+          <form class="container card-text" [formGroup]="updateTeacherForm" (ngSubmit)="onSubmitGroupForm()">
+            <input type="text" class="form-control item" placeholder="profesor" formControlName="ident"/>
+            <button class="btn btn-primary mr-1 item" [disabled]="updateTeacherForm.invalid">Añadir</button>
+          </form>
         </div>
       </div>
       <div *ngIf="alert" class="alert alert-danger" role="alert">
@@ -25,16 +30,16 @@
       </div>
     </form>
     <div *ngIf="save" class="alert alert-success" role="dialog">
-      Asignatura Guardada
+      profesor guardado
     </div>
     <div *ngIf="error" class="alert alert-danger" role="alert">
       Introduce datos correctos
     </div>
     <div *ngIf="showDelete" class="alert alert-success" role="dialog">
-      Asignatura Borrada
+      Profesor Borrado
     </div>
     <div *ngIf="errorDelete" class="alert alert-danger" role="alert">
-      Error al borrar asignatura
+      Error al añadir profesor
     </div>
   </div>
 </div>
