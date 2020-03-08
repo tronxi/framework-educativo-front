@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   environment: 'dev',
-  url: 'http://localhost:8079'
+  url: 'http://35.195.65.163'
 };
