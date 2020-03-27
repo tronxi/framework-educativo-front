@@ -6,11 +6,12 @@ RUN git clone https://${token}:x-oauth-basic@github.com/tronxi/framework-educati
 RUN cd framework-educativo-front && git checkout develop
 
 FROM node:13.5.0-alpine3.11 as builder
+ARG environment env
 COPY --from="git" /repo/framework-educativo-front /front
 WORKDIR /front
 RUN npm install -y
 RUN npm install -g @angular/cli -y
-RUN ng build --configuration=dev --base-href /
+RUN ng build --configuration=${environment} --base-href /
 
 FROM nginx:1.17.6-alpine
 RUN rm -r /usr/share/nginx/html/
