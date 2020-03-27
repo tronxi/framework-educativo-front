@@ -61,11 +61,11 @@
                 }
               ]
             },
-            "jenkins": {
+            "docker": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.jenkins.ts"
+                  "with": "src/environments/environment.docker.ts"
                 }
               ]
             }

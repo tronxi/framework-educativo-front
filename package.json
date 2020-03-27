@@ -5,7 +5,7 @@
     "ng": "ng",
     "local": "ng serve",
     "dev": "ng serve --configuration=dev",
-    "jenkins": "ng serve --configuration=jenkins",
+    "docker": "ng serve --configuration=docker",
     "pro": "ng serve --configuration=production",
     "build": "ng build",
     "test": "ng test",
