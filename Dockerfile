@@ -6,7 +6,7 @@ RUN git clone https://${token}:x-oauth-basic@github.com/tronxi/framework-educati
 RUN cd framework-educativo-front && git checkout develop
 
 FROM node:13.5.0-alpine3.11 as builder
-ARG ENVIRONMENT env
+ARG ENVIRONMENT=env
 COPY --from="git" /repo/framework-educativo-front /front
 WORKDIR /front
 RUN npm install -y
