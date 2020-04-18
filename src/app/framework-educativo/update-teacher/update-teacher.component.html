@@ -16,7 +16,7 @@
           <ul>
             <li *ngFor="let teacher of teachers" class="container-space">
               <span class="item">{{teacher.ident}}</span>
-              <button class="btn btn-danger mr-1 item" (click)="deleteTeacher(teacher.ident)">Borrar</button>
+              <button class="btn btn-danger mr-1 item" (click)="deleteTeacher(teacher.id_user)">Borrar</button>
             </li>
           </ul>
           <form class="container card-text" [formGroup]="updateTeacherForm" (ngSubmit)="onSubmitGroupForm()">

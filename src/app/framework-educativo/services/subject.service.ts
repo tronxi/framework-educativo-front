@@ -32,4 +32,8 @@ export class SubjectService {
   setTeacher(subject, teacher) {
     return this.http.post(environment.url + '/subject-service/subject/' + subject + '/teacher/' + teacher, {});
   }
+
+  deleteTeacher(subject, idTeacher) {
+    return this.http.delete(environment.url + '/subject-service/subject/' + subject + '/teacher/' + idTeacher);
+  }
 }

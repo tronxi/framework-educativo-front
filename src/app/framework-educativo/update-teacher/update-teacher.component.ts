@@ -68,8 +68,24 @@ export class UpdateTeacherComponent implements OnInit {
       });
   }
 
-  deleteTeacher(ident) {
-    console.log(ident);
+  deleteTeacher(idTeacher) {
+    this.subjectService.deleteTeacher(this.subject.idSubject, idTeacher)
+      .subscribe( response => {
+        this.save = true;
+        this.deleteAlerts();
+        this.subjectService.getSubjectTeachers(this.subject.idSubject)
+          .subscribe(res => {
+            this.teachers = res;
+            this.buildUpdateTeacherForm();
+          }, er => {
+            console.log(er);
+          });
+      }, error => {
+        this.errorDelete = true;
+        console.log(error);
+        this.deleteAlerts();
+        this.buildUpdateTeacherForm();
+      });
   }
 
   onSubmitGroupForm() {
