@@ -14,7 +14,7 @@ export class AddStudentComponent implements OnInit {
 
   idSubject;
   idGroup;
-  subject: object = {name: '', groups: []};
+  subject;
   group = [{name: ''}];
   subjectNotFound = false;
   student;
@@ -22,6 +22,7 @@ export class AddStudentComponent implements OnInit {
   errorStudent = false;
   studentsList;
   showStudentList = false;
+  showSubjectData = false;
 
   public findUserForm: FormGroup;
 
@@ -39,6 +40,7 @@ export class AddStudentComponent implements OnInit {
       this.idGroup = params.idGroup;
       this.subjectService.getSubjectById(this.idSubject).subscribe(response => {
         this.subject = response;
+        this.showSubjectData = true;
         this.group = this.subject.groups.filter(group => group.id_group === this.idGroup);
         if (this.group.length === 0 ) {
           this.subjectNotFound = true;

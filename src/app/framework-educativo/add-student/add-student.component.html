@@ -1,7 +1,7 @@
 <div class="card container margin">
   <div class="card-body">
     <h5 class="card-title text-center">Añadir Alumno</h5>
-    <h5 *ngIf="!subjectNotFound" class="card-title text-center">Asignatura: {{subject.name}}
+    <h5 *ngIf="!subjectNotFound && showSubjectData" class="card-title text-center">Asignatura: {{subject.name}}
       Grupo: {{group[0].name}}</h5>
     <div *ngIf="subjectNotFound" class="alert alert-danger" role="alert">Asignatura o Grupo no encontrado</div>
     <div *ngIf="!subjectNotFound">
