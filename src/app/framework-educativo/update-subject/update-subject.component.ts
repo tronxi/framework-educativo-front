@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {SubjectService} from '../services/subject.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-update-subject',
@@ -22,7 +23,9 @@ export class UpdateSubjectComponent implements OnInit {
   private subject;
 
   constructor(private formBuilder: FormBuilder,
-              private subjectService: SubjectService) { }
+              private subjectService: SubjectService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.buildFindSubjectForm();
@@ -65,17 +68,17 @@ export class UpdateSubjectComponent implements OnInit {
   onSubmitFindSubject() {
     this.subjectService.getSubjectByNameYear(this.findSubjectForm.value.name, this.findSubjectForm.value.year)
       .subscribe(response => {
-      console.log(response);
-      this.showLoadSubjectForm = true;
-      this.showNotFound = false;
-      this.subject = response;
-      this.setData(response);
-      this.buildGroupForm();
+        console.log(response);
+        this.showLoadSubjectForm = true;
+        this.showNotFound = false;
+        this.subject = response;
+        this.setData(response);
+        this.buildGroupForm();
       }, error => {
-      console.log(error);
-      this.showNotFound = true;
-      this.showLoadSubjectForm = false;
-    });
+        console.log(error);
+        this.showNotFound = true;
+        this.showLoadSubjectForm = false;
+      });
   }
 
   setData(data) {
@@ -153,7 +156,7 @@ export class UpdateSubjectComponent implements OnInit {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       const names = subject.groups.filter(group => group.name === control.value);
       if (control.value !== undefined && names.length !== 0) {
-        return { uniqueValue: true };
+        return {uniqueValue: true};
       }
       return null;
     };
@@ -166,5 +169,10 @@ export class UpdateSubjectComponent implements OnInit {
       this.showDelete = false;
       this.errorDelete = false;
     }, 2000);
+  }
+
+  addStudent(subject, group) {
+    this.router.navigateByUrl('/homepage/add-student/subject/' + subject + '/group/' + group);
+    console.log('subject ' + subject + ' group ' + group);
   }
 }

@@ -11,6 +11,7 @@ import {UpdateUserComponent} from '../framework-educativo/update-user/update-use
 import {LoadSubjectComponent} from '../framework-educativo/load-subject/load-subject.component';
 import {UpdateSubjectComponent} from '../framework-educativo/update-subject/update-subject.component';
 import {UpdateTeacherComponent} from '../framework-educativo/update-teacher/update-teacher.component';
+import {AddStudentComponent} from '../framework-educativo/add-student/add-student.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
       {
         path: 'update-teacher',
         component: UpdateTeacherComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'add-student/subject/:idSubject/group/:idGroup',
+        component: AddStudentComponent,
         canActivate: [AdminGuard]
       }
     ]

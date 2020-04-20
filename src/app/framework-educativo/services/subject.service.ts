@@ -24,6 +24,9 @@ export class SubjectService {
   deleteSubjectById(id) {
     return this.http.delete(environment.url + '/subject-service/subject?id=' + id);
   }
+  getSubjectById(id) {
+    return this.http.get(environment.url + '/subject-service/subject?id=' + id);
+  }
 
   updateSubject(subject) {
     return this.http.put(environment.url + '/subject-service/subject', subject);

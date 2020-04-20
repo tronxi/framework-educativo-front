@@ -1,0 +1,28 @@
+<div class="card container margin">
+  <div class="card-body">
+    <h5 class="card-title text-center">Añadir Alumno</h5>
+    <h5 *ngIf="!subjectNotFound" class="card-title text-center">Asignatura: {{subject.name}}
+      Grupo: {{group[0].name}}</h5>
+    <div *ngIf="subjectNotFound" class="alert alert-danger" role="alert">Asignatura o Grupo no encontrado</div>
+    <div *ngIf="!subjectNotFound">
+      <form class="container card-text" [formGroup]="findUserForm" #form="ngForm" (ngSubmit)="onSubmit()">
+        <input type="text" formControlName="ident" class="form-control item" placeholder="ident"/>
+        <button class="btn btn-primary mr-1 item" [disabled]="findUserForm.invalid">Buscar</button>
+      </form>
+      <div *ngIf="errorStudent" class="alert alert-danger" role="alert">Alumno no encontrado</div>
+      <div *ngIf="showStudent" class="card container-space">
+        <span class="item"><b>ident:</b> {{student.ident}} <b>nombre:</b> {{student.name}}</span>
+        <button class="btn btn-info mr-1 item" (click)="addStudent(student.id_user)">Añadir</button>
+      </div>
+      <div *ngIf="showStudentList">
+        <ul>
+          <li *ngFor="let student of studentsList" class="container-space">
+            <span class="item"><b>ident:</b> {{student.ident}} <b>nombre:</b> {{student.name}}</span>
+            <button class="btn btn-danger mr-1 item" (click)="deleteStudent(student.id_user)">Borrar</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>

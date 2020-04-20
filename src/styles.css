@@ -36,3 +36,6 @@ body {
 .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
   border: solid 2px lightcoral;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

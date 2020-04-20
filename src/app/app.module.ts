@@ -9,6 +9,7 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import {FrameworkEducativoModule} from './framework-educativo/framework-educativo.module';
 import {TokenInterceptorService} from './interceptors/token-interceptor.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {TokenInterceptorService} from './interceptors/token-interceptor.service'
     HttpClientModule, RouterModule,
     AppRoutingModule,
     FrameworkEducativoModule,
+    NoopAnimationsModule
   ],
   providers: [
     {

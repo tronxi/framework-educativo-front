@@ -2,16 +2,17 @@
   <div class="card-body">
     <h5 class="card-title text-center">Actualizar Asignatura</h5>
     <form class="container" [formGroup]="findSubjectForm" (ngSubmit)="onSubmitFindSubject()">
-      <input type="text"  formControlName="name" class="form-control item" placeholder="nombre de la asignatura"/>
+      <input type="text" formControlName="name" class="form-control item" placeholder="nombre de la asignatura"/>
       <input type="number" min="1970" max="2900" formControlName="year" class="form-control item" placeholder="año"/>
-      <button class="btn btn-primary mr-1 item"  [disabled]="findSubjectForm.invalid">Buscar</button>
+      <button class="btn btn-primary mr-1 item" [disabled]="findSubjectForm.invalid">Buscar</button>
       <div *ngIf="showNotFound" class="alert alert-danger" role="alert">
         Asignatura no encontrada
       </div>
     </form>
-    <form *ngIf="showLoadSubjectForm" class="container card-text" [formGroup]="loadSubjectForm" #form="ngForm" (ngSubmit)="onSubmitLoadSubject(type)">
-      <input type="text"  formControlName="id" class="form-control item" placeholder="id" disabled/>
-      <input type="text"  formControlName="name" class="form-control item" placeholder="nombre de la asignatura"/>
+    <form *ngIf="showLoadSubjectForm" class="container card-text" [formGroup]="loadSubjectForm" #form="ngForm"
+          (ngSubmit)="onSubmitLoadSubject(type)">
+      <input type="text" formControlName="id" class="form-control item" placeholder="id" disabled/>
+      <input type="text" formControlName="name" class="form-control item" placeholder="nombre de la asignatura"/>
       <input type="number" min="1970" max="2900" formControlName="year" class="form-control item" placeholder="año"/>
       <div class="card container margin">
         <div class="card-body">
@@ -19,12 +20,13 @@
           <ul>
             <li *ngFor="let group of subject.groups" class="container-space">
               <span class="item">{{group.name}}</span>
+              <button *ngIf="group.id_group" class="btn btn-info mr-1 item" (click)="addStudent(subject.idSubject, group.id_group)">Añadir alumnos</button>
               <button class="btn btn-danger mr-1 item" (click)="deleteGroup(group.name)">Borrar</button>
             </li>
           </ul>
           <form class="container card-text" [formGroup]="groupForm" (ngSubmit)="onSubmitGroupForm()">
-            <input type="text"  formControlName="group" class="form-control item" placeholder="grupo"/>
-            <button class="btn btn-primary mr-1 item"  [disabled]="groupForm.invalid">Añadir</button>
+            <input type="text" formControlName="group" class="form-control item" placeholder="grupo"/>
+            <button class="btn btn-primary mr-1 item" [disabled]="groupForm.invalid">Añadir</button>
           </form>
         </div>
       </div>
@@ -32,8 +34,12 @@
         Introduce datos correctos
       </div>
       <div class="container-row">
-        <button class="btn btn-primary mr-1 item" [disabled]="loadSubjectForm.invalid" (click)="onSubmitLoadSubject('update')">Actualizar</button>
-        <button class="btn btn-danger mr-1 item" [disabled]="loadSubjectForm.invalid" (click)="onSubmitLoadSubject('delete')">Borrar</button>
+        <button class="btn btn-primary mr-1 item" [disabled]="loadSubjectForm.invalid"
+                (click)="onSubmitLoadSubject('update')">Actualizar
+        </button>
+        <button class="btn btn-danger mr-1 item" [disabled]="loadSubjectForm.invalid"
+                (click)="onSubmitLoadSubject('delete')">Borrar
+        </button>
       </div>
     </form>
     <div *ngIf="save" class="alert alert-success" role="dialog">

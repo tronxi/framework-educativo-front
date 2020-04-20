@@ -13,7 +13,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { LoadSubjectComponent } from './load-subject/load-subject.component';
 import { UpdateSubjectComponent } from './update-subject/update-subject.component';
 import { UpdateTeacherComponent } from './update-teacher/update-teacher.component';
-
+import { AddStudentComponent } from './add-student/add-student.component';
 
 
 @NgModule({
@@ -29,13 +29,15 @@ import { UpdateTeacherComponent } from './update-teacher/update-teacher.componen
     LoadSubjectComponent,
     UpdateSubjectComponent,
     UpdateTeacherComponent,
+    AddStudentComponent,
   ],
-    imports: [
-        CommonModule,
-        RouterModule,
-        ReactiveFormsModule,
-        FormsModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule
+
+  ],
   exports: [
     HomepageContentComponent,
     HomepageAdminComponent,
