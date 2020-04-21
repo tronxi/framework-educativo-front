@@ -6,7 +6,7 @@
     <div *ngIf="subjectNotFound" class="alert alert-danger" role="alert">Asignatura o Grupo no encontrado</div>
     <div *ngIf="!subjectNotFound">
       <form class="container card-text" [formGroup]="findUserForm" #form="ngForm" (ngSubmit)="onSubmit()">
-        <input type="text" formControlName="ident" class="form-control item" placeholder="ident"/>
+        <input type="text" formControlName="ident" class="form-control item" placeholder="ident" [ngbTypeahead]="search"/>
         <button class="btn btn-primary mr-1 item" [disabled]="findUserForm.invalid">Buscar</button>
       </form>
       <div *ngIf="errorStudent" class="alert alert-danger" role="alert">Alumno no encontrado</div>

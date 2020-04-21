@@ -14,6 +14,7 @@ import { LoadSubjectComponent } from './load-subject/load-subject.component';
 import { UpdateSubjectComponent } from './update-subject/update-subject.component';
 import { UpdateTeacherComponent } from './update-teacher/update-teacher.component';
 import { AddStudentComponent } from './add-student/add-student.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { AddStudentComponent } from './add-student/add-student.component';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgbModule
 
   ],
   exports: [

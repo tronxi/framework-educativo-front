@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../services/user.service';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-update-user',
@@ -35,7 +37,10 @@ export class UpdateUserComponent implements OnInit {
   private showDelete = false;
   private errorDelete = false;
   private user;
+  usersIdent = [];
+
   ngOnInit() {
+    this.findUsers();
     this.buildLoadUserForm();
     this.buildFindUserForm();
   }
@@ -165,11 +170,34 @@ export class UpdateUserComponent implements OnInit {
       this.buildLoadUserForm();
       this.deleteAlerts();
       console.log(response);
+      this.findUsers();
     }, error => {
       this.errorDelete = true;
       this.deleteAlerts();
       console.log(error);
     });
   }
+
+  findUsers() {
+    this.userService.getUsersByRole('STUDENT').subscribe(response => {
+      this.setUsersIdent(response);
+    });
+  }
+
+  setUsersIdent(response) {
+    this.usersIdent = [];
+    response.map(user => {
+      this.usersIdent.push(user.ident);
+    });
+  }
+
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1 ? []
+        : this.usersIdent.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
 
 }

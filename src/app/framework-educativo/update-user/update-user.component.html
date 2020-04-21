@@ -2,7 +2,7 @@
   <div class="card-body">
     <h5 class="card-title text-center">Actualizar Usuario</h5>
     <form class="container" [formGroup]="findUserForm" (ngSubmit)="onSubmitFindUser()">
-      <input type="text" class="form-control item" formControlName="ident" placeholder="ident"/>
+      <input type="text" class="form-control item" formControlName="ident" placeholder="ident" [ngbTypeahead]="search"/>
       <button class="btn btn-primary mr-1 item"  [disabled]="findUserForm.invalid">Buscar</button>
       <div *ngIf="showNotFound" class="alert alert-danger" role="alert">
         usuario no encontrado

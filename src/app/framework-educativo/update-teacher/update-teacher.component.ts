@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SubjectService} from '../services/subject.service';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-update-teacher',
@@ -19,11 +22,14 @@ export class UpdateTeacherComponent implements OnInit {
   private errorDelete = false;
   private subject;
   private teachers;
+  usersIdent = [];
 
   constructor(private formBuilder: FormBuilder,
-              private subjectService: SubjectService) { }
+              private subjectService: SubjectService,
+              private userService: UserService) { }
 
   ngOnInit() {
+    this.findUsers();
     this.buildFindSubjectForm();
     this.buildUpdateTeacherForm();
   }
@@ -33,7 +39,7 @@ export class UpdateTeacherComponent implements OnInit {
       name: new FormControl('', [
         Validators.required,
       ]),
-      year: new FormControl('2019', [
+      year: new FormControl('2020', [
         Validators.required, Validators.min(1970), Validators.max(2900)
       ]),
     });
@@ -116,5 +122,27 @@ export class UpdateTeacherComponent implements OnInit {
       this.errorDelete = false;
     }, 2000);
   }
+
+  findUsers() {
+    this.userService.getUsersByRole('TEACHER').subscribe(response => {
+      this.setUsersIdent(response);
+    });
+  }
+
+  setUsersIdent(response) {
+    this.usersIdent = [];
+    response.map(user => {
+      this.usersIdent.push(user.ident);
+    });
+  }
+
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1 ? []
+        : this.usersIdent.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
 
 }

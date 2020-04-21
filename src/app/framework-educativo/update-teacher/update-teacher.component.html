@@ -20,7 +20,7 @@
             </li>
           </ul>
           <form class="container card-text" [formGroup]="updateTeacherForm" (ngSubmit)="onSubmitGroupForm()">
-            <input type="text" class="form-control item" placeholder="profesor" formControlName="ident"/>
+            <input type="text" class="form-control item" placeholder="profesor" formControlName="ident" [ngbTypeahead]="search"/>
             <button class="btn btn-primary mr-1 item" [disabled]="updateTeacherForm.invalid">Añadir</button>
           </form>
         </div>

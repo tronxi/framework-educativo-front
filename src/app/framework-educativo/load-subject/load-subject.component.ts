@@ -27,7 +27,7 @@ export class LoadSubjectComponent implements OnInit {
       name: new FormControl('', [
         Validators.required,
       ]),
-      year: new FormControl('2016', [
+      year: new FormControl('2020', [
         Validators.required, Validators.min(1970), Validators.max(2900)
       ]),
     });

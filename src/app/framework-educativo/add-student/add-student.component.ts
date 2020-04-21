@@ -4,6 +4,8 @@ import {SubjectService} from '../services/subject.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../services/user.service';
 import {StudentService} from '../services/student.service';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-add-student',
@@ -23,6 +25,7 @@ export class AddStudentComponent implements OnInit {
   studentsList;
   showStudentList = false;
   showSubjectData = false;
+  usersIdent = [];
 
   public findUserForm: FormGroup;
 
@@ -33,23 +36,43 @@ export class AddStudentComponent implements OnInit {
               private studentService: StudentService) {
   }
 
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1 ? []
+        : this.usersIdent.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+
   ngOnInit() {
     this.buildFindSubjectForm();
     this.route.params.subscribe(params => {
       this.idSubject = params.idSubject;
       this.idGroup = params.idGroup;
-      this.subjectService.getSubjectById(this.idSubject).subscribe(response => {
-        this.subject = response;
-        this.showSubjectData = true;
-        this.group = this.subject.groups.filter(group => group.id_group === this.idGroup);
-        if (this.group.length === 0 ) {
-          this.subjectNotFound = true;
-        } else {
-          this.updateStudentList();
+      this.userService.getUsersByRole('STUDENT').subscribe(
+        response => {
+          this.setUsersIdent(response);
+          this.subjectService.getSubjectById(this.idSubject).subscribe(response => {
+            this.subject = response;
+            this.showSubjectData = true;
+            this.group = this.subject.groups.filter(group => group.id_group === this.idGroup);
+            if (this.group.length === 0 ) {
+              this.subjectNotFound = true;
+            } else {
+              this.updateStudentList();
+            }
+          }, error => {
+            this.subjectNotFound = true;
+          });
         }
-      }, error => {
-        this.subjectNotFound = true;
-      });
+      );
+    });
+  }
+
+  setUsersIdent(response) {
+    this.usersIdent = [];
+    response.map(user => {
+      this.usersIdent.push(user.ident);
     });
   }
 
