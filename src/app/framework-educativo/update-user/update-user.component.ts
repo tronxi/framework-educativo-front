@@ -179,7 +179,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   findUsers() {
-    this.userService.getUsersByRole('STUDENT').subscribe(response => {
+    this.userService.getAllUsers().subscribe(response => {
       this.setUsersIdent(response);
     });
   }
