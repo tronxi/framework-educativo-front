@@ -78,9 +78,9 @@ export class LoadStudentGroupComponent implements OnInit {
     const lines = csv.split('\r\n');
 
     const result = [];
-    const headers = lines[0].split(',');
+    const headers = ['ident', 'names', 'surnames', 'email'];
 
-    for (let i = 1; i < lines.length; i++) {
+    for (let i = 0; i < lines.length; i++) {
       const obj = {};
       const currentline = lines[i].split(',');
 
