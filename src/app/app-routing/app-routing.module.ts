@@ -12,6 +12,13 @@ import {LoadSubjectComponent} from '../framework-educativo/load-subject/load-sub
 import {UpdateSubjectComponent} from '../framework-educativo/update-subject/update-subject.component';
 import {UpdateTeacherComponent} from '../framework-educativo/update-teacher/update-teacher.component';
 import {AddStudentComponent} from '../framework-educativo/add-student/add-student.component';
+import {ActivityGroupComponent} from '../framework-educativo/activity-group/activity-group.component';
+import {ActivityDetailComponent} from '../framework-educativo/activity-detail/activity-detail.component';
+import {StudentGuard} from '../guards/student.guard';
+import {ActivityViewStudentComponent} from '../framework-educativo/activity-view-student/activity-view-student.component';
+import {ActivityDetailStudentComponent} from '../framework-educativo/activity-detail-student/activity-detail-student.component';
+import {UpdateSubjectTeacherComponent} from '../framework-educativo/update-subject-teacher/update-subject-teacher.component';
+import {TeacherGuard} from '../guards/teacher.guard';
 
 const routes: Routes = [
   {
@@ -62,6 +69,31 @@ const routes: Routes = [
         path: 'add-student/subject/:idSubject/group/:idGroup',
         component: AddStudentComponent,
         canActivate: [AdminGuard]
+      },
+      {
+        path: 'activity-group/subject/:idSubject/group/:idGroup',
+        component: ActivityGroupComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'activity-detail/subject/:idSubject/group/:idGroup/activity/:idActivity',
+        component: ActivityDetailComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'activity-view-student/group/:idGroup',
+        component: ActivityViewStudentComponent,
+        canActivate: [StudentGuard]
+      },
+      {
+        path: 'activity-detail-student/activity/:idActivity',
+        component: ActivityDetailStudentComponent,
+        canActivate: [StudentGuard]
+      },
+      {
+        path: 'update-subject-teacher/subject/:subjectId/year/:yearId',
+        component: UpdateSubjectTeacherComponent,
+        canActivate: [TeacherGuard]
       }
     ]
   }

@@ -17,6 +17,10 @@ export class UserService {
     return this.http.get(environment.url + '/user-service/user?ident=' + ident);
   }
 
+  getUsersById(id) {
+    return this.http.get(environment.url + '/user-service/user/' + id);
+  }
+
   getAllUsers() {
     return this.http.get(environment.url + '/user-service/user');
   }

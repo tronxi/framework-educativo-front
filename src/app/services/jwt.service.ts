@@ -38,5 +38,8 @@ export class JwtService {
     return this.getDecodedAccessToken().roles.includes('ROLE_ADMIN');
   }
 
+  getId() {
+    return this.getDecodedAccessToken().id;
+  }
 
 }

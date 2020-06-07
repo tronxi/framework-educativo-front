@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {SubjectService} from '../services/subject.service';
 import {Router} from '@angular/router';
+import {ActivityService} from '../services/activity.service';
 
 @Component({
   selector: 'app-update-subject',
@@ -10,26 +11,33 @@ import {Router} from '@angular/router';
 })
 export class UpdateSubjectComponent implements OnInit {
 
-  public loadSubjectForm: FormGroup;
-  public findSubjectForm: FormGroup;
-  public groupForm: FormGroup;
-  private alert: boolean;
-  private save = false;
-  private error = false;
-  private showLoadSubjectForm = false;
-  private showNotFound = false;
-  private showDelete = false;
-  private errorDelete = false;
-  private subject;
+  loadSubjectForm: FormGroup;
+  findSubjectForm: FormGroup;
+  loadActivityForm: FormGroup;
+  groupForm: FormGroup;
+  alert: boolean;
+  save = false;
+  error = false;
+  showLoadSubjectForm = false;
+  showNotFound = false;
+  showDelete = false;
+  errorDelete = false;
+  activityLoadOk = false;
+  activityLoadKo = false;
+  subject;
+
+  private groupIdForActivity = new Set();
 
   constructor(private formBuilder: FormBuilder,
               private subjectService: SubjectService,
+              private activityService: ActivityService,
               private router: Router) {
   }
 
   ngOnInit() {
     this.buildFindSubjectForm();
     this.buildLoadSubjectForm();
+    this.buildLoadActivityForm();
   }
 
   buildFindSubjectForm() {
@@ -40,6 +48,13 @@ export class UpdateSubjectComponent implements OnInit {
       year: new FormControl('2020', [
         Validators.required, Validators.min(1970), Validators.max(2900)
       ]),
+    });
+  }
+
+  buildLoadActivityForm() {
+    this.loadActivityForm = this.formBuilder.group({
+      name: new FormControl('', [Validators.required]),
+      date: new FormControl('', Validators.required)
     });
   }
 
@@ -90,6 +105,7 @@ export class UpdateSubjectComponent implements OnInit {
   }
 
   onSubmitLoadSubject(type) {
+    this.groupIdForActivity = new Set();
     if (this.loadSubjectForm.invalid) {
       this.alert = true;
       return;
@@ -173,6 +189,42 @@ export class UpdateSubjectComponent implements OnInit {
 
   addStudent(subject, group) {
     this.router.navigateByUrl('/homepage/add-student/subject/' + subject + '/group/' + group);
-    console.log('subject ' + subject + ' group ' + group);
+  }
+
+  addGroupForActivity(groupId) {
+    this.groupIdForActivity.has(groupId)
+      ? this.groupIdForActivity.delete(groupId) : this.groupIdForActivity.add(groupId);
+    console.log(Array.from(this.groupIdForActivity));
+
+  }
+
+  onSubmitActivity() {
+    this.activityService.createActivity(this.loadActivityForm.value.name,
+      this.loadActivityForm.value.date, Array.from(this.groupIdForActivity))
+      .subscribe(response => {
+        this.activityLoadOk = true;
+        this.deleteAlertsActivity();
+        this.groupIdForActivity = new Set();
+        this.buildLoadActivityForm();
+      }, error => {
+        this.activityLoadKo = true;
+        this.deleteAlertsActivity();
+        this.groupIdForActivity = new Set();
+        this.buildLoadActivityForm();
+      });
+  }
+  containCheck(idGroup) {
+    return this.groupIdForActivity.has(idGroup);
+  }
+
+  deleteAlertsActivity() {
+    setTimeout(() => {
+      this.activityLoadKo = false;
+      this.activityLoadOk = false;
+    }, 2000);
+  }
+
+  findActivities(groupId) {
+    this.router.navigateByUrl('/homepage/activity-group/subject/' + this.subject.idSubject + '/group/' + groupId);
   }
 }

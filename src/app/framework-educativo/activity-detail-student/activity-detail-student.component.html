@@ -1,0 +1,32 @@
+<div class="card container margin">
+  <div class="card-body">
+    <h5 class="card-title text-center">Prácticas</h5>
+    <h5 class="card-title text-center"> Asignatura: {{dataService.subjectName}}</h5>
+    <h5 class="card-title text-center"> Practica: {{dataService.activityName}}</h5>
+    <h5 class="card-title text-center"> Fecha limite: {{getDate()}}</h5>
+
+
+    <div *ngIf="subjectNotFound" class="alert alert-danger" role="alert">Actividad no encontrada</div>
+    <div *ngIf="!subjectNotFound">
+      <ul>
+        <span>
+          Entregada:
+          <svg *ngIf="activity.finished" class="bi bi-check-circle-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="green" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+          <svg *ngIf="!activity.finished" class="bi bi-check-circle-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+        </span>
+        <span class="item">Puntuación: {{activity.mark}}</span>
+        <input *ngIf="!activity.finished" type="text"class="item" [(ngModel)]="name" placeholder="practica"/>
+        <span *ngIf="activity.finished">{{activity.name}}</span>
+        <button *ngIf="!activity.finished" class="btn btn-info mr-1 item" (click)="upload(activity.activityId)">Subir</button>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    Error
+  </div>
+
+</div>

@@ -17,6 +17,14 @@ export class SubjectService {
     return this.http.get(environment.url + '/subject-service/subject?name=' + name + '&year=' + year);
   }
 
+  getSubjectByUserId(userId) {
+    return this.http.get(environment.url + '/subject-service/subject/student/' + userId);
+  }
+
+  getSubjectByTeacherId(teacherId) {
+    return this.http.get(environment.url + '/subject-service/subject/teacher/' + teacherId);
+  }
+
   getSubjectTeachers(subject) {
     return this.http.get(environment.url + '/subject-service/subject/' + subject + '/teacher');
   }

@@ -15,6 +15,13 @@ import { UpdateSubjectComponent } from './update-subject/update-subject.componen
 import { UpdateTeacherComponent } from './update-teacher/update-teacher.component';
 import { AddStudentComponent } from './add-student/add-student.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ActivityGroupComponent } from './activity-group/activity-group.component';
+import { ActivityDetailComponent } from './activity-detail/activity-detail.component';
+import { ViewSubjectComponent } from './view-subject/view-subject.component';
+import { ActivityViewStudentComponent } from './activity-view-student/activity-view-student.component';
+import { ActivityDetailStudentComponent } from './activity-detail-student/activity-detail-student.component';
+import { UpdateSubjectTeacherComponent } from './update-subject-teacher/update-subject-teacher.component';
+import { ViewSubjectTeacherComponent } from './view-subject-teacher/view-subject-teacher.component';
 
 
 @NgModule({
@@ -31,6 +38,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     UpdateSubjectComponent,
     UpdateTeacherComponent,
     AddStudentComponent,
+    ActivityGroupComponent,
+    ActivityDetailComponent,
+    ViewSubjectComponent,
+    ActivityViewStudentComponent,
+    ActivityDetailStudentComponent,
+    UpdateSubjectTeacherComponent,
+    ViewSubjectTeacherComponent,
   ],
   imports: [
     CommonModule,

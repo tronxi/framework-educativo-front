@@ -1,0 +1,64 @@
+<div class="card container margin">
+  <div class="card-body">
+    <h5 class="card-title text-center">Asignatura {{subjectName}}</h5>
+    <div *ngIf="showNotFound" class="alert alert-danger" role="alert">
+      Asignatura no encontrada
+    </div>
+    <div *ngIf="showLoadSubjectForm" class="card container margin">
+      <div class="card-body">
+        <h5 class="card-title text-center">Grupos</h5>
+        <ul>
+          <li *ngFor="let group of subject.groups" class="container-space">
+            <span class="item">{{group.name}}</span>
+            <button *ngIf="group.id_group" class="btn btn-info mr-1 item"
+                    (click)="addStudent(subject.idSubject, group.id_group)">Añadir alumnos
+            </button>
+            <button *ngIf="group.id_group" class="btn btn-info mr-1 item" (click)="findActivities(group.id_group)">Ver
+              prácticas
+            </button>
+            <button class="btn btn-danger mr-1 item" (click)="deleteGroup(group.name)">Borrar</button>
+          </li>
+        </ul>
+        <form class="container card-text" [formGroup]="groupForm" (ngSubmit)="onSubmitGroupForm()">
+          <input type="text" formControlName="group" class="form-control item" placeholder="grupo"/>
+          <button class="btn btn-primary mr-1 item" [disabled]="groupForm.invalid">Añadir</button>
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="alert" class="alert alert-danger" role="alert">
+      Introduce datos correctos
+    </div>
+    <div class="container-row">
+      <button class="btn btn-primary mr-1 item"
+              (click)="onSubmitLoadSubject('update')">Actualizar
+      </button>
+    </div>
+    <div *ngIf="showLoadSubjectForm" class="card container margin">
+      <div class="card-body">
+        <h5 class="card-title text-center">Crear Practica</h5>
+        <ul>
+          <li *ngFor="let group of subject.groups" class="container-space">
+            <span *ngIf="group.id_group" class="item">{{group.name}}</span>
+            <input *ngIf="group.id_group" type="checkbox" class="item" id="exampleCheck1"
+                   (click)="addGroupForActivity(group.id_group)" [checked]="containCheck(group.id_group)">
+          </li>
+        </ul>
+        <form class="container card-text" [formGroup]="loadActivityForm" (ngSubmit)="onSubmitActivity()">
+          <input type="date" formControlName="date">
+          <input type="text" formControlName="name" class="form-control item" placeholder="Practica"/>
+          <button class="btn btn-primary mr-1 item" [disabled]="loadActivityForm.invalid">Crear</button>
+        </form>
+        <div *ngIf="activityLoadOk" class="alert alert-success" role="dialog">
+          Practica Creada
+        </div>
+        <div *ngIf="activityLoadKo" class="alert alert-danger" role="alert">
+          Error al actualizar
+        </div>
+      </div>
+    </div>
+    <div *ngIf="save" class="alert alert-success" role="dialog">
+      Asignatura Guardada
+    </div>
+  </div>
+</div>
