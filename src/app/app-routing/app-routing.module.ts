@@ -19,6 +19,7 @@ import {ActivityViewStudentComponent} from '../framework-educativo/activity-view
 import {ActivityDetailStudentComponent} from '../framework-educativo/activity-detail-student/activity-detail-student.component';
 import {UpdateSubjectTeacherComponent} from '../framework-educativo/update-subject-teacher/update-subject-teacher.component';
 import {TeacherGuard} from '../guards/teacher.guard';
+import {TeacherOrAdminGuard} from '../guards/teacher-or-admin.guard';
 
 const routes: Routes = [
   {
@@ -68,17 +69,17 @@ const routes: Routes = [
       {
         path: 'add-student/subject/:idSubject/group/:idGroup',
         component: AddStudentComponent,
-        canActivate: [AdminGuard]
+        canActivate: [TeacherOrAdminGuard]
       },
       {
         path: 'activity-group/subject/:idSubject/group/:idGroup',
         component: ActivityGroupComponent,
-        canActivate: [AdminGuard]
+        canActivate: [TeacherOrAdminGuard]
       },
       {
         path: 'activity-detail/subject/:idSubject/group/:idGroup/activity/:idActivity',
         component: ActivityDetailComponent,
-        canActivate: [AdminGuard]
+        canActivate: [TeacherOrAdminGuard]
       },
       {
         path: 'activity-view-student/group/:idGroup',
