@@ -16,6 +16,7 @@ export class ActivityDetailStudentComponent implements OnInit {
   subjectNotFound = false;
   error = false;
   name;
+  file;
 
   constructor(private jwtService: JwtService,
               private dataService: DataService,
@@ -47,12 +48,26 @@ export class ActivityDetailStudentComponent implements OnInit {
   }
 
   upload(activityId) {
-    this.activityService.uploadActivity(activityId, this.jwtService.getId(), this.name)
+    const formData = new FormData();
+    formData.append('file', this.file);
+    formData.append('name', '');
+
+    this.activityService.uploadActivity(activityId, this.jwtService.getId(), formData)
       .subscribe(response => {
         this.findActivity();
       }, error => {
         this.error = true;
       });
+  }
+
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+    }
+  }
+
+  buttonActive() {
+    return !this.activity.finished && this.file != null;
   }
 
 

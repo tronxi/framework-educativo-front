@@ -3,6 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {SubjectService} from '../services/subject.service';
 import {ActivityService} from '../services/activity.service';
 import {UserService} from '../services/user.service';
+import * as FileSaver from 'file-saver';
+
 
 @Component({
   selector: 'app-activity-detail',
@@ -21,6 +23,7 @@ export class ActivityDetailComponent implements OnInit {
   subjectNotFound = false;
   showSubjectData = false;
   errorDelete = false;
+  errorFile = false;
 
   constructor(private route: ActivatedRoute,
               private subjectService: SubjectService,
@@ -76,8 +79,17 @@ export class ActivityDetailComponent implements OnInit {
   }
 
   download(user) {
-    // TODO
+    console.log(user);
+    this.activityService.downloadActivity(this.activity.activityId, user.id_user).subscribe(response => {
+      let name = response.headers.get('Content-Disposition');
+      name = name.slice(name.search('=') + 1);
+      FileSaver.saveAs(response.body, name);
+    }, error => {
+      this.errorFile = true;
+      console.log(error);
+    });
   }
+
 
   mark(user, mark) {
     console.log(mark);

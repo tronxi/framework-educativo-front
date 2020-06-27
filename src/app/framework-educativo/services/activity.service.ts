@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 
 
@@ -34,9 +34,13 @@ export class ActivityService {
       + '/student/ ' + studentId + ' /mark', {mark} );
   }
 
-  uploadActivity(activityId, studentId, name) {
+  uploadActivity(activityId, studentId, formData) {
     return this.http.put(environment.url + '/activity-service/activity/' + activityId
-      + '/student/ ' + studentId, {name} );
+      + '/student/' + studentId, formData );
+  }
+
+  downloadActivity(activityId, studentId) {
+    return this.http.get(environment.url + '/activity-service/activity/' + activityId + '/student/' + studentId + '/download', { observe: 'response', responseType: 'blob'});
   }
 
 }
