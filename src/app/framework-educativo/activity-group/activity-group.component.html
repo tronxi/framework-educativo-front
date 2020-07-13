@@ -7,13 +7,13 @@
     </h5>
     <div *ngIf="subjectNotFound" class="alert alert-danger" role="alert">Asignatura o Grupo no encontrado</div>
     <div *ngIf="!subjectNotFound">
-      <ul>
-        <li *ngFor="let activity of activities" class="container-space">
-          <span class="item">{{activity.name}}</span>
-          <button class="btn btn-info mr-1 item" (click)="seeActivity(activity.activityId)">Ver</button>
-          <button class="btn btn-danger mr-1 item" (click)="deleteActivity(activity.activityId)">Borrar</button>
-        </li>
-      </ul>
+        <span *ngFor="let activity of activities" class="card margin container-space">
+          <span class="item"><strong>Nombre: </strong>{{activity.name}}</span>
+          <span class="container-row">
+            <button class="btn btn-info mr-1 item" (click)="seeActivity(activity.activityId)">Ver Práctica</button>
+            <button class="btn btn-danger mr-1 item" (click)="deleteActivity(activity.activityId)">Borrar</button>
+          </span>
+        </span>
     </div>
   </div>
   <div *ngIf="errorDelete" class="alert alert-danger" role="alert">

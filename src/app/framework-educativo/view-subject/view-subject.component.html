@@ -3,14 +3,13 @@
     <h5 class="card-title text-center">Asignaturas</h5>
     <div *ngIf="subjectNotFound" class="alert alert-danger" role="alert">Asignatura o Grupo no encontrado</div>
     <div *ngIf="!subjectNotFound">
-      <ul>
-        <li *ngFor="let subject of subjects" class="container-space">
-          <span class="item">{{subject.name}}</span>
-          <span class="item">{{subject.year}}</span>
-          <span class="item">{{subject.groups[0].name}}</span>
-          <button class="btn btn-info mr-1 item" (click)="activityDetail(subject.groups[0].id_group, subject.name)">Ver</button>
-        </li>
-      </ul>
+        <span *ngFor="let subject of subjects" class="card margin container-space">
+          <span class="item"><strong>Nombre:</strong> {{subject.name}}</span>
+          <span class="item"><strong>Año:</strong> {{subject.year}}</span>
+          <span class="item"><strong>Grupo:</strong> {{subject.groups[0].name}}</span>
+          <button class="btn btn-info mr-1 item"
+                  (click)="activityDetail(subject.groups[0].id_group, subject.name)">Ver</button>
+        </span>
     </div>
   </div>
   <div *ngIf="error" class="alert alert-danger" role="alert">

@@ -4,12 +4,11 @@
     <h5 class="card-title text-center"> Asignatura: {{dataService.subjectName}}</h5>
     <div *ngIf="subjectNotFound" class="alert alert-danger" role="alert">Asignatura o Grupo no encontrado</div>
     <div *ngIf="!subjectNotFound">
-      <ul>
-        <li *ngFor="let activity of activities" class="container-space">
-          <span class="item">{{activity.name}}</span>
-          <button class="btn btn-info mr-1 item" (click)="activityDetail(activity.activityId, activity.name, activity.maxDate)">Ver</button>
-        </li>
-      </ul>
+        <span *ngFor="let activity of activities" class="card margin container-space">
+          <span class="item"><strong>Práctica: </strong>{{activity.name}}</span>
+          <button class="btn btn-info mr-1 item"
+                  (click)="activityDetail(activity.activityId, activity.name, activity.maxDate)">Ver</button>
+        </span>
     </div>
   </div>
   <div *ngIf="error" class="alert alert-danger" role="alert">

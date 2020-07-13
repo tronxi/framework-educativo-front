@@ -9,10 +9,19 @@ body {
   align-content: center;
 }
 
+ul {
+  list-style-type: none;
+}
+
+.mark {
+  width: 30%;
+}
+
+
 .container-space {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
 }
 .container-row {
   display: flex;
@@ -23,8 +32,16 @@ body {
 .margin {
   margin-top: 30px;
 }
-.item {
+
+.button{
+  width: 30%;
   align-self: center;
+}
+/*.card{*/
+/*  margin: 10px;*/
+/*}*/
+.item {
+  align-self: auto;
   padding: 5px;
   margin: 10px;
 }

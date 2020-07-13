@@ -13,12 +13,10 @@
       <div class="card container margin">
         <div class="card-body">
           <h5 class="card-title text-center">Profesores</h5>
-          <ul>
-            <li *ngFor="let teacher of teachers" class="container-space">
-              <span class="item">{{teacher.ident}}</span>
+            <span *ngFor="let teacher of teachers" class="card margin container-space">
+              <span class="item"><strong>Nombre: </strong>{{teacher.ident}}</span>
               <button class="btn btn-danger mr-1 item" (click)="deleteTeacher(teacher.id_user)">Borrar</button>
-            </li>
-          </ul>
+            </span>
           <form class="container card-text" [formGroup]="updateTeacherForm" (ngSubmit)="onSubmitGroupForm()">
             <input type="text" class="form-control item" placeholder="profesor" formControlName="ident" [ngbTypeahead]="search"/>
             <button class="btn btn-primary mr-1 item" [disabled]="updateTeacherForm.invalid">Añadir</button>

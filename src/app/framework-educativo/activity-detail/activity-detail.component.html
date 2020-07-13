@@ -13,17 +13,18 @@
 
     <div *ngIf="subjectNotFound" class="alert alert-danger" role="alert">Asignatura o Grupo no encontrado</div>
     <div *ngIf="!subjectNotFound">
-      <ul>
-        <li *ngFor="let user of users" class="container-space">
-          <span class="item">{{user.name}}</span>
-          <span class="item">Nota: {{seeUser(user).mark}}</span>
-          <button class="btn btn-info mr-1 item" (click)="download(user)">Descargar</button>
-          <input type="number" class="form-control item" [(ngModel)]="seeUser(user).mark" placeholder="Puntuacion">
-          <button class="btn btn-info mr-1 item" (click)="mark(user, seeUser(user).mark)"
-                  [disabled]="seeUser(user).mark == null">Puntuar
-          </button>
-        </li>
-      </ul>
+        <span *ngFor="let user of users" class="card margin container-space">
+          <span class="item"><strong>Nombre: </strong>{{user.name}}</span>
+          <span class="item"><strong>Nota: </strong>{{seeUser(user).mark}}</span>
+          <span class="container-row">
+            <button class="btn btn-info mr-1 item" (click)="download(user)">Descargar</button>
+            <input type="number" class="form-control item mark" [(ngModel)]="seeUser(user).mark"
+                           placeholder="Puntuacion">
+            <button class="btn btn-info mr-1 item" (click)="mark(user, seeUser(user).mark)"
+                    [disabled]="seeUser(user).mark == null">Puntuar
+            </button>
+          </span>
+        </span>
     </div>
   </div>
   <div *ngIf="errorDelete" class="alert alert-danger" role="alert">
