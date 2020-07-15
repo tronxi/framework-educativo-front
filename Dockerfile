@@ -11,7 +11,7 @@ COPY --from="git" /repo/framework-educativo-front /front
 WORKDIR /front
 RUN npm install -y
 RUN npm install -g @angular/cli -y
-RUN ng build --configuration= ${environment} --base-href /
+RUN ng build --configuration= "$environment" --base-href /
 
 FROM nginx:1.17.6-alpine
 RUN rm -r /usr/share/nginx/html/
