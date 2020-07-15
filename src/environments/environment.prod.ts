@@ -1,5 +1,5 @@
 export const environment = {
   environment: 'prod',
   production: true,
-  url: ''
+  url: 'https://framework-educativo-gateway.pw'
 };

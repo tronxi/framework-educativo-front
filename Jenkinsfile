@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        FRONT_TAG = '0.0.4'
+        FRONT_TAG = '0.0.5'
         DOCKER_HUB_PASSWORD = credentials('DOCKER_HUB_PASSWORD')
     }
     stages {
@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh '''
                     echo $DOCKER_HUB_PASSWORD
-                    docker build -t tronxi/framework-educativo-front:${FRONT_TAG} .
+                    docker build -t tronxi/framework-educativo-front:${FRONT_TAG} --build-arg ENVIRONMENT=prod .
                 '''
             }
         }
