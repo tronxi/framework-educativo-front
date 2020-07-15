@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh '''
                     echo $DOCKER_HUB_PASSWORD
-                    docker build -t tronxi/framework-educativo-front:${FRONT_TAG} --build-arg ENVIRONMENT=prod .
+                    docker build --build-arg environment=prod -t tronxi/framework-educativo-front:${FRONT_TAG}  .
                 '''
             }
         }
