@@ -8,7 +8,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    echo $DOCKER_HUB_PASSWORD
                     docker build -t tronxi/framework-educativo-front:${FRONT_TAG} .
                 '''
             }
